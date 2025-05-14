@@ -1,14 +1,27 @@
 .link {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    padding: 8px 0;
-    color: black;
+    gap: 6px;
+    padding: 8px 12px;
+    color: rgb(113, 21, 63);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
+
+    border-radius: 4px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    margin-bottom: 20px;
   }
 
   .link:hover {
-    color: orangered;
+    color: rgb(241, 217, 217);
+    background-color: rgb(85, 12, 44);
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    font-size: 18px;
   }

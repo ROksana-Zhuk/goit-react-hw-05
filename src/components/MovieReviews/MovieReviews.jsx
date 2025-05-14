@@ -1,6 +1,7 @@
 import { getMovieReviews } from '../../services/moviesService.js'
 import {  useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import css from './MovieReviews.module.css'
 
 
 
@@ -14,23 +15,25 @@ export default function MovieReviews() {
     useEffect(() => {
         getMovieReviews(movieId)
             .then((data) => setMovieReviews(data))
-            .finally(() => console.log('11111'));
+            .catch((error) => console.error(error));
 
         }, [movieId]);
 
 
     return (
         movieReviews.length > 0 ?
-        (<ul>
+        (<ul className={css.list}>
             {movieReviews.map((review) => (
-             <li key={review.id}>
-             <h3>Author: {review.author}</h3>
-             <p>{review.content}</p>
+             <li key={review.id} className={css.item}>
+             <h3 className={css.author}>Author: {review.author}</h3>
+             <p className={css.content}>{review.content}</p>
              </li>
             ))}
 
         </ul>)
-        : ("We don't have any reviews for this movie.")
+        : (<p className={css.noReviews}>We don't have any reviews for this movie.</p>)
     )
 }
+
+
 

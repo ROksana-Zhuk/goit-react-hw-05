@@ -1,0 +1,38 @@
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .item {
+    background-color: #f9f9f9;
+    border-left: 5px solid rgb(113, 21, 63);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgb(113, 21, 63);
+  }
+
+  .author {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: rgb(113, 21, 63);
+  }
+
+  .content {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+  }
+
+  .noReviews {
+    font-size: 16px;
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+  }

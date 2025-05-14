@@ -15,8 +15,7 @@
 
 #root {
     width: 100%;
-    background-color: #ebb3b3;
-
+    background-color: #dcefeabe;
 }
 
 a {
@@ -31,7 +30,6 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }

@@ -35,7 +35,7 @@ export default function MoviesPage() {
 
             getMoviesFiltered(query)
                 .then((data) => setMovies(data))
-                .finally(() => console.log('11111'));
+                .catch((error) => console.error(error));
     }, [query, searchParams]);
 
 
@@ -54,7 +54,7 @@ export default function MoviesPage() {
 
     return (
         <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={css.form}>
             <input
               type="text"
               name="search"

@@ -2,28 +2,40 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #2a2a2a;
+    padding: 16px 40px;
+    background-color: #e6c9ce;
+    border-bottom: 1px solid rgb(113, 21, 63);
     margin-bottom: 20px;
-    padding-left: 40px;
+    box-shadow: 0 1px 6px rgb(113, 21, 63);
   }
 
   .nav {
     display: flex;
-    gap: 20px;
-
-
+    gap: 24px;
   }
 
   .link {
     text-decoration: none;
-    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    color: #222;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .link:hover {
+    background-color: rgba(249, 154, 154, 0.4);
+    color: #8b004f;
+    border: 1px solid rgb(113, 21, 63);
 
   }
 
   .isActive {
-    color: rgb(113, 21, 63);
-
-
+    color: #8b004f;
+    background-color: white;
+    box-shadow: 0 0 0 1px #8b004f inset;
+    border-radius: 8px;
   }
+
+

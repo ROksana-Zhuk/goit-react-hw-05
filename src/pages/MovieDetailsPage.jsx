@@ -2,7 +2,7 @@ import { NavLink, useParams, Outlet, useLocation } from "react-router-dom";
 import { getMovieDetails } from "../services/moviesService";
 import { BackLink } from "../components/BackLink/BackLink";
 import { useEffect, useState } from "react";
-
+import css from './MovieDetailsPage.module.css'
 
 export default function MovieDetailsPage() {
     const { movieId } = useParams();
@@ -16,13 +16,13 @@ export default function MovieDetailsPage() {
 
       getMovieDetails(movieId)
         .then((data) => setMovieDetails(data))
-        .finally(() => console.log('11111'));
+        .catch((error) => console.error(error));
 
     }, [movieId]);
 
 
      return (
-        <div>
+        <div className={css.container}>
           <BackLink to={backLinkHref}>Go back</BackLink>
 
           {movieDetails &&
@@ -31,35 +31,53 @@ export default function MovieDetailsPage() {
           <div>
 
             <div>
-              <img src={`https://image.tmdb.org/t/p/w500/${movieDetails.backdrop_path}`}/>
-              <h2> {movieDetails.original_title}</h2>
-              <p>User score: {Number.parseInt(movieDetails.vote_average *10)}%</p>
-              <h3> Overview</h3>
+              <img src={`https://image.tmdb.org/t/p/w500/${movieDetails.backdrop_path}`}
+                  alt={movieDetails.original_title}
+                  className={css.poster}
+              />
+              <h2 className={css.title}> {movieDetails.original_title}</h2>
+              <p className={css.score}>User score: {Number.parseInt(movieDetails.vote_average *10)}%</p>
+              <h3 className={css.overviewTitle}> Overview</h3>
               <p>{movieDetails.overview} </p>
-              <h4>Genres</h4>
+              <h4 className={css.genresTitle}>Genres</h4>
 
 
               {movieDetails.genres.map((genre) => (
-                  <p key={genre.id}>{genre.name}</p>
+                <span key={genre.id} className={css.genreItem}>
+              {genre.name}
+                </span>
               ))}
+
+
+
 
             </div>
             <hr/>
-            <p>Additional information</p>
+            <p className={css.text}>Additional information</p>
             <ul>
               <li>
-                <NavLink to="cast" state={backLinkHref}>Cast</NavLink>
+                <NavLink to="cast"
+                         state={backLinkHref}
+                         className={({ isActive }) =>
+                  isActive ? `${css.navLink} ${css.navLinkActive}` : css.navLink
+                }
+                >Cast
+
+                </NavLink>
               </li>
               <li>
-                 <NavLink to="reviews" state={backLinkHref}>Reviews</NavLink>
+                 <NavLink to="reviews"
+                          state={backLinkHref}
+                          className={({ isActive }) =>
+                  isActive ? `${css.navLink} ${css.navLinkActive}` : css.navLink
+                }
+                >Reviews
+                </NavLink>
               </li>
             </ul>
             <hr/>
 
           </div>
-
-
-
 
           }
 
