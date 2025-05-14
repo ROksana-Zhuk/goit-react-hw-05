@@ -3,6 +3,7 @@ import MovieList from "../components/MovieList/MovieList";
 import { getMoviesFiltered } from '.././services/moviesService.js'
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import Loader from '../components/Loader/Loader'
 
 
 
@@ -10,50 +11,51 @@ import { useSearchParams } from "react-router-dom";
 export default function MoviesPage() {
 
     const [movies, setMovies] = useState([]);
-    const [query, setQuery] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     const [searchParams, setSearchParams] = useSearchParams();
 
 
 
 
-
-    const updateSearchParams = (key, value) => {
-        const updatedParams = new URLSearchParams(searchParams);
-        updatedParams.set(key, value);
-        setSearchParams(updatedParams);
-      };
-
-
     useEffect(() => {
-        const search = searchParams.get("search");
-        if(search === null) {
-            return
-        }
-        setQuery(search);
 
+        const query = searchParams.get("search") ?? "";
 
-            getMoviesFiltered(query)
-                .then((data) => setMovies(data))
-                .catch((error) => console.error(error));
-    }, [query, searchParams]);
+        setIsError(false)
+        setIsLoading(true)
+        getMoviesFiltered(query)
+            .then((data) => setMovies(data))
+            .catch((error) => {
+                setIsError(true);
+                console.log(error);
+            })
+            .finally(() => setIsLoading(false));
+    }, [searchParams]);
 
 
 
     const handleSubmit = (event) => {
             event.preventDefault();
 
-
             const search = event.target.elements.search.value;
+            const nextSearchParams = new URLSearchParams(searchParams);
 
-            updateSearchParams("search", search);
+            if (search !== "") {
+              nextSearchParams.set("search", search);
+            } else {
+              nextSearchParams.delete("search");
+            }
+            setSearchParams(nextSearchParams);
 
-            setQuery(search);
+
             event.target.reset();
     };
 
     return (
         <div>
+         {isError && <p><strong>Error! Try again.</strong></p> }
         <form onSubmit={handleSubmit} className={css.form}>
             <input
               type="text"
@@ -65,6 +67,7 @@ export default function MoviesPage() {
             >Search
         </button>
         </form>
+        {isLoading && <Loader />}
         <MovieList movies={movies}/>
       </div>
         )

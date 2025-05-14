@@ -1,7 +1,7 @@
 import { NavLink, useParams, Outlet, useLocation } from "react-router-dom";
 import { getMovieDetails } from "../services/moviesService";
 import { BackLink } from "../components/BackLink/BackLink";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import css from './MovieDetailsPage.module.css'
 
 export default function MovieDetailsPage() {
@@ -9,7 +9,7 @@ export default function MovieDetailsPage() {
     const [movieDetails, setMovieDetails] = useState(null);
 
     const location = useLocation();
-    const backLinkHref = location.state ?? "/movies";
+    const backLinkHref = useRef(location.state ?? '/movies');
 
 
     useEffect(() => {
@@ -20,18 +20,20 @@ export default function MovieDetailsPage() {
 
     }, [movieId]);
 
+    const defaultImg = "https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg";
 
-     return (
+    return (
         <div className={css.container}>
-          <BackLink to={backLinkHref}>Go back</BackLink>
+          <BackLink to={backLinkHref.current}>Go back</BackLink>
 
           {movieDetails &&
-
-
           <div>
-
             <div>
-              <img src={`https://image.tmdb.org/t/p/w500/${movieDetails.backdrop_path}`}
+              <img src={
+                movieDetails.backdrop_path
+                  ? `https://image.tmdb.org/t/p/w500/${movieDetails.backdrop_path}`
+                  : defaultImg
+                }
                   alt={movieDetails.original_title}
                   className={css.poster}
               />
